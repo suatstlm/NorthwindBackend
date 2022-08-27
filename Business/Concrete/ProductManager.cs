@@ -3,7 +3,6 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
-using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
@@ -13,7 +12,6 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Business.BusinessAspects.Autofac;
 
 namespace Business.Concrete
@@ -34,10 +32,10 @@ namespace Business.Concrete
             return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductId == productId));
         }
 
-        [PerformanceAspect(5)]
+        //[PerformanceAspect(5)]
         public IDataResult<List<Product>> GetList()
         {
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             return new SuccessDataResult<List<Product>>(_productDal.GetList().ToList());
         }
 
@@ -73,7 +71,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.ProductNameAlreadyExists);
             }
 
-            return new SuccessResult();
+            return new SuccessResult("");
         }
 
         private IResult CheckIfCategoryIsEnabled()
@@ -84,7 +82,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.ProductNameAlreadyExists);
             }
 
-            return new SuccessResult();
+            return new SuccessResult("");
         }
 
         public IResult Delete(Product product)

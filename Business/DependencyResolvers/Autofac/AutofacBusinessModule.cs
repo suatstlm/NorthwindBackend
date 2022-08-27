@@ -1,7 +1,4 @@
 ﻿using Autofac;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;

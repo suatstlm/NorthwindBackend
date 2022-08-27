@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Core.Entities;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Core.CrossCuttingConcerns.Validation
 {
@@ -10,7 +6,8 @@ namespace Core.CrossCuttingConcerns.Validation
     {
         public static void Validate(IValidator validator,object entity)
         {
-            var result = validator.Validate(entity);
+            //var contex = new ValidationContext<object>(entity);
+            var result = validator.Validate((IValidationContext)entity /*contex*/);
             if (!result.IsValid)
             {
                 throw new ValidationException(result.Errors);
