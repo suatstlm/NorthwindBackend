@@ -18,8 +18,8 @@ namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
-        private IProductDal _productDal;
-        private ICategoryService _categoryService;
+        private readonly IProductDal _productDal;
+        private readonly ICategoryService _categoryService;
 
         public ProductManager(IProductDal productDal, ICategoryService categoryService)
         {
@@ -35,13 +35,12 @@ namespace Business.Concrete
         //[PerformanceAspect(5)]
         public IDataResult<List<Product>> GetList()
         {
-            //Thread.Sleep(5000);
             return new SuccessDataResult<List<Product>>(_productDal.GetList().ToList());
         }
 
-        [SecuredOperation("Product.List,Admin")]
-        [LogAspect(typeof(FileLogger))]
-        [CacheAspect(duration: 10)]
+        //[SecuredOperation("Product.List,Admin")]
+        //[LogAspect(typeof(FileLogger))]
+        //[CacheAspect(duration: 10)]
         public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetList(p => p.CategoryId == categoryId).ToList());
